@@ -640,4 +640,21 @@
       left: 10px;
     }
   }
+/*=========================2.HERO CSS===========================================*/
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+}
+
+.banner h2 {
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  font-size: 1.5em;
+}
   

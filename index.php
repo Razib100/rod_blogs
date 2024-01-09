@@ -33,7 +33,12 @@ if (isset($_GET['t_id'])) {
 
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-
+    <style>
+        .banner {
+            background: url('<?php echo BASE_URL ?>/assets/img/banner.jpg') no-repeat center/cover;
+            height: 50vh;
+        }
+    </style>
   <title>Blog</title>
 </head>
 
@@ -54,22 +59,20 @@ if (isset($_GET['t_id'])) {
       <i class="fas fa-chevron-right next"></i>
 
       <div class="post-wrapper">
-
         <?php foreach ($posts as $post): ?>
           <div class="post">
             <div class="post-info">
               <h4><a href="single.php?id=<?php echo $post['id']; ?>">
-<!--                      --><?php //echo $post['title']; ?>
                       <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
                   </a></h4>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
               &nbsp;
               <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at'])); ?></i>
+                <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i>
+
             </div>
           </div>
         <?php endforeach; ?>
-
-
       </div>
 
     </div>
@@ -89,6 +92,7 @@ if (isset($_GET['t_id'])) {
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
               &nbsp;
               <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at'])); ?></i>
+                <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i>
               <p class="preview-text">
                 <?php echo html_entity_decode(substr($post['body'], 0, 150) . '...'); ?>
               </p>
@@ -113,7 +117,7 @@ if (isset($_GET['t_id'])) {
 
 
         <div class="section topics">
-          <h2 class="section-title">Topics</h2>
+          <h2 class="section-title">Category</h2>
           <ul>
             <?php foreach ($topics as $key => $topic): ?>
               <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>"><?php echo $topic['name']; ?></a></li>

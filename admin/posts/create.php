@@ -81,7 +81,7 @@ adminOnly();
                         <div>
                             <?php if (empty($published)): ?>
                                 <label>
-                                    <input type="checkbox" name="published">
+                                    <input type="checkbox" name="published" checked>
                                     Publish
                                 </label>
                             <?php else: ?>

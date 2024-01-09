@@ -3,6 +3,12 @@
 
 if (isset($_GET['id'])) {
   $post = selectOne('posts', ['id' => $_GET['id']]);
+    $currentViewCount = $post['view_count'];
+    // Update the view_count by incrementing it by 1
+    $updatedViewCount = $currentViewCount + 1;
+    update('posts', $_GET['id'], ['view_count' => $updatedViewCount]);
+    // Fetch the updated post data
+    $post = selectOne('posts', ['id' => $_GET['id']]);
 }
 $topics = selectAll('topics');
 $posts = selectAll('posts', ['published' => 1]);
@@ -26,7 +32,13 @@ $posts = selectAll('posts', ['published' => 1]);
 
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-
+    <style>
+        .banner {
+            /*display: none;*/
+            background: url('<?php echo BASE_URL ?>/assets/img/banner.jpg') no-repeat center/cover;
+            height: 50vh;
+        }
+    </style>
   <title><?php echo $post['title']; ?> | Rod Blogs</title>
 </head>
 
@@ -53,6 +65,9 @@ $posts = selectAll('posts', ['published' => 1]);
           <div class="post-content">
             <?php echo html_entity_decode($post['body']); ?>
           </div>
+            <div>
+                <span>Total views: <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i></span>
+            </div>
 
         </div>
       </div>
@@ -75,7 +90,7 @@ $posts = selectAll('posts', ['published' => 1]);
         </div>
 
         <div class="section topics">
-          <h2 class="section-title">Topics</h2>
+          <h2 class="section-title">Category</h2>
           <ul>
             <?php foreach ($topics as $topic): ?>
               <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>"><?php echo $topic['name']; ?></a></li>

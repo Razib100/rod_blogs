@@ -19,7 +19,12 @@ guestsOnly();
 
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        .banner {
+            display: none;
+        }
+    </style>
   <title>Register</title>
 </head>
 
@@ -51,6 +56,9 @@ guestsOnly();
         <label>Password Confirmation</label>
         <input type="password" name="passwordConf"  value="<?php echo $passwordConf; ?>" class="text-input">
       </div>
+        <div>
+            <div class="g-recaptcha" data-sitekey="6LfmYkcpAAAAAJjarUpak9joQMFTSbS3HNDHTX9o"></div>
+        </div>
       <div>
         <button type="submit" name="register-btn" class="btn btn-big">Register</button>
       </div>

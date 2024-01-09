@@ -3,6 +3,17 @@
 function validateUser($user)
 {
     $errors = array();
+    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $response = $_POST['g-recaptcha-response'];
+    unset($_POST['g-recaptcha-response']);
+
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secreatKey&response=$response&remoteip=$ip";
+    $fire = file_get_contents($url);
+    $data = json_decode($fire);
+    if($data->success == false){
+        array_push($errors, 'Recaptcha is required');
+    }
 
     if (empty($user['username'])) {
         array_push($errors, 'Username is required');
@@ -43,7 +54,15 @@ function validateUser($user)
 function validateLogin($user)
 {
     $errors = array();
-
+    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $response = $_POST['g-recaptcha-response'];
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secreatKey&response=$response&remoteip=$ip";
+    $fire = file_get_contents($url);
+    $data = json_decode($fire);
+    if($data->success == false){
+        array_push($errors, 'Recaptcha is required');
+    }
     if (empty($user['username'])) {
         array_push($errors, 'Username is required');
     }
