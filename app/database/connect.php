@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$user = 'root';
-$pass = 'root1234';
-$db_name = 'githubblog';
+$user = 'dorjieco_app';
+$pass = 'NGm9p5fVHXQ5kxU';
+$db_name = 'dorjieco_test_b';
 
 $conn = new MySQLi($host, $user, $pass, $db_name);
 
