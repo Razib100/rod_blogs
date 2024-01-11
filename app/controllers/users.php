@@ -124,3 +124,21 @@ if (isset($_GET['delete_id'])) {
     header('location: ' . BASE_URL . '/admin/users/index.php'); 
     exit();
 }
+
+if (isset($_POST['login-fb'])) {
+    // $errors = validateLogin($_POST);
+    $user = selectOne($table, ['uid' => $_POST['uid']]);
+    if (isset($user)) {
+        loginUser($user);
+    } else {
+        unset($_POST['login-fb']);
+        $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $_POST['admin'] = 0;
+        $user_id = create($table, $_POST);
+        $user = selectOne($table, ['id' => $user_id]);
+        loginUser($user);
+    }
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+}
