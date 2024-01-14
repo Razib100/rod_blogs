@@ -17,6 +17,8 @@
           <ul>
             <?php if($_SESSION['admin']): ?>
               <li><a href="<?php echo BASE_URL . '/admin/dashboard.php' ?>">Dashboard</a></li>
+            <?php elseif($_SESSION['id']): ?>
+              <li><a href="<?php echo BASE_URL . '/user/dashboard.php' ?>">Dashboard</a></li>
             <?php endif; ?>
             <li><a href="<?php echo BASE_URL . '/logout.php' ?>" class="logout">Logout</a></li>
           </ul>

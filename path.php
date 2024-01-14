@@ -1,5 +1,5 @@
 <?php
 
 define("ROOT_PATH", realpath(dirname(__FILE__)));
-define("BASE_URL", "https://profile.dorji-e.com");
+define("BASE_URL", "http://testblog.test/rod_blogs");
 ?>
