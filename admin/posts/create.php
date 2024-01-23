@@ -79,6 +79,10 @@ adminOnly();
                             </select>
                         </div>
                         <div>
+                            <label>Image</label>
+                            <input type="file" name="image" class="text-input">
+                        </div>
+                        <div>
                             <?php if (empty($published)): ?>
                                 <label>
                                     <input type="checkbox" name="published" checked>
