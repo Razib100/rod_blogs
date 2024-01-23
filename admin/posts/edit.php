@@ -65,7 +65,10 @@ adminOnly();
                         </div>
                         <div>
                             <label>Image</label>
-                            <input type="file" name="image" class="text-input">
+                            <input type="file" name="image" class="text-input" onchange="previewImage()" id="imageInput">
+                        </div>
+                        <div id="imagePreviewContainer">
+                            <img id="imagePreview" src="<?php echo BASE_URL . '/assets/images/' .$image ?>" style="max-width: 100%; max-height: 200px; margin-top: 10px;">
                         </div>
                         <div>
                             <label>Topic</label>

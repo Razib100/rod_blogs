@@ -73,3 +73,28 @@ ClassicEditor.create(document.querySelector("#body"), {
 }).catch(error => {
     console.log(error);
 });
+
+
+// Image preview
+
+function previewImage() {
+    const input = document.getElementById('imageInput');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const previewImage = document.getElementById('imagePreview');
+
+    const file = input.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewContainer.style.display = 'block';
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        // No file selected, hide the preview container
+        previewContainer.style.display = 'none';
+    }
+}
