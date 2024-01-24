@@ -64,6 +64,12 @@ adminOnly();
                             <textarea name="body" id="basic-example"><?php echo $body ?></textarea><br>
                         </div>
                         <div>
+                            <label>
+                                <input type="checkbox" name="trending" checked>
+                                Trending
+                            </label>
+                        </div>
+                        <div>
                             <label>Topic</label>
                             <select name="topic_id" class="text-input">
                                 <option value=""></option>

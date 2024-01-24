@@ -64,6 +64,12 @@ adminOnly();
                             <textarea name="body" id="basic-example"><?php echo $body ?></textarea><br>
                         </div>
                         <div>
+                            <label>
+                                <input type="checkbox" name="trending" <?php echo $trending ? "checked": ""?>>
+                                Trending
+                            </label>
+                        </div>
+                        <div>
                             <label>Image</label>
                             <input type="file" name="image" class="text-input" onchange="previewImage()" id="imageInput">
                         </div>

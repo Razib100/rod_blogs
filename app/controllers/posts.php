@@ -23,6 +23,7 @@ if (isset($_GET['id'])) {
     $id = $post['id'];
     $title = $post['title'];
     $body = $post['body'];
+    $trending = $post['trending'];
     $topic_id = $post['topic_id'];
     $published = $post['published'];
     $image = $post['image'];
@@ -71,6 +72,7 @@ if (isset($_POST['add-post'])) {
         $_POST['published'] = isset($_POST['published']) ? 1 : 0;
         $_POST['view_count'] =  0;
         $_POST['body'] = htmlentities($_POST['body']);
+        $_POST['trending'] = isset($_POST['trending']) ? 1 : 0;
     
         $post_id = create($table, $_POST);
         $_SESSION['message'] = "Post created successfully";
