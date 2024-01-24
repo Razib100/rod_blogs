@@ -13,6 +13,7 @@ if (isset($_GET['t_id'])) {
   $posts = searchPosts($_POST['search-term']);
 } else {
   $posts = getPublishedPosts();
+  $tendings = getTendingPosts();
 }
 
 ?>
@@ -59,8 +60,9 @@ if (isset($_GET['t_id'])) {
       <i class="fas fa-chevron-right next"></i>
 
       <div class="post-wrapper">
-        <?php foreach ($posts as $post): ?>
+        <?php foreach ($tendings as $post): ?>
           <div class="post">
+              <img src="<?php echo BASE_URL . '/assets/images/' . $post['image']; ?>" alt="" class="slider-image">
             <div class="post-info">
               <h4><a href="single.php?id=<?php echo $post['id']; ?>">
                       <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>

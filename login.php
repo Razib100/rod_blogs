@@ -47,8 +47,8 @@ guestsOnly();
         <input type="password" name="password" value="<?php echo $password; ?>" class="text-input">
       </div>
       <div>
-<!--        <div class="g-recaptcha" data-sitekey="6LfmYkcpAAAAAJjarUpak9joQMFTSbS3HNDHTX9o"></div>-->
-          <div class="g-recaptcha" data-sitekey="6Ldu1E0pAAAAANP0oGwAhBUcpw0iY2Sto75GVHfJ"></div>
+        <div class="g-recaptcha" data-sitekey="6LfmYkcpAAAAAJjarUpak9joQMFTSbS3HNDHTX9o"></div>
+<!--          <div class="g-recaptcha" data-sitekey="6Ldu1E0pAAAAANP0oGwAhBUcpw0iY2Sto75GVHfJ"></div>-->
       </div>
       <div>
         <button type="submit" name="login-btn" class="btn btn-big">Login</button>

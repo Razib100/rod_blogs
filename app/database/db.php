@@ -137,6 +137,20 @@ function getPublishedPosts()
     $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
 }
+function getTendingPosts()
+{
+    global $conn;
+    $sql = "SELECT p.*, u.username 
+            FROM posts AS p 
+            JOIN users AS u ON p.user_id = u.id 
+            WHERE p.tending = ?
+            ORDER BY p.created_at DESC
+            LIMIT 10";
+
+    $stmt = executeQuery($sql, ['tending' => 1]);
+    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $records;
+}
 
 
 function getPostsByTopicId($topic_id)

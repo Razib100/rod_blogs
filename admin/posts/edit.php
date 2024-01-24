@@ -78,6 +78,11 @@ adminOnly();
                             </select>
                         </div>
                         <div>
+                            <label>Image</label>
+                            <input type="file" name="image" class="text-input">
+                            <img src="<?php echo BASE_URL . '/assets/images/' . $image; ?>" alt="" style="width: 211px; margin-top: 5px; height: 158px;">
+                        </div>
+                        <div>
                             <?php if (empty($published) && $published == 0): ?>
                                 <label>
                                     <input type="checkbox" name="published">
@@ -90,6 +95,21 @@ adminOnly();
                                 </label>
                             <?php endif; ?>
                            
+
+                        </div>
+                        <div>
+                            <?php if (empty($tending) && $tending == 0): ?>
+                                <label>
+                                    <input type="checkbox" name="tending">
+                                    Tending
+                                </label>
+                            <?php else: ?>
+                                <label>
+                                    <input type="checkbox" name="tending" checked>
+                                    Tending
+                                </label>
+                            <?php endif; ?>
+
 
                         </div>
                         <div>

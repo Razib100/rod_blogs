@@ -3,8 +3,8 @@
 function validateUser($user)
 {
     $errors = array();
-//    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
-    $secreatKey = "6Ldu1E0pAAAAAFSqu1Fxu85tvVp3LmZqKrYnoB-G";
+    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
+//    $secreatKey = "6Ldu1E0pAAAAAFSqu1Fxu85tvVp3LmZqKrYnoB-G";
     $ip = $_SERVER['REMOTE_ADDR'];
     $response = $_POST['g-recaptcha-response'];
     unset($_POST['g-recaptcha-response']);
@@ -55,8 +55,8 @@ function validateUser($user)
 function validateLogin($user)
 {
     $errors = array();
-//    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
-    $secreatKey = "6Ldu1E0pAAAAAFSqu1Fxu85tvVp3LmZqKrYnoB-G";
+    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
+//    $secreatKey = "6Ldu1E0pAAAAAFSqu1Fxu85tvVp3LmZqKrYnoB-G";
     $ip = $_SERVER['REMOTE_ADDR'];
     $response = $_POST['g-recaptcha-response'];
     $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secreatKey&response=$response&remoteip=$ip";

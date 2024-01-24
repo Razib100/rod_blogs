@@ -72,6 +72,12 @@ adminOnly();
                                     <?php else: ?>
                                         <td><a href="edit.php?published=1&p_id=<?php echo $post['id'] ?>" class="publish">publish</a></td>
                                     <?php endif; ?>
+
+                                    <?php if ($post['tending']): ?>
+                                        <td><a href="edit.php?tending=0&p_id=<?php echo $post['id'] ?>" class="nottending">not tending</a></td>
+                                    <?php else: ?>
+                                        <td><a href="edit.php?tending=1&p_id=<?php echo $post['id'] ?>" class="publish">tending</a></td>
+                                    <?php endif; ?>
                                     
                                 </tr>
                             <?php endforeach; ?>
