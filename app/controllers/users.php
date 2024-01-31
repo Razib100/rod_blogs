@@ -143,3 +143,30 @@ if (isset($_POST['login-fb'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 }
+
+if (isset($_POST['update-pass'])) {
+    adminOnly();
+
+    $id = $_POST['id'];
+    $password = $_POST['password'];
+    $passwordConf = $_POST['passwordConf'];
+
+    // Check if the password and confirmation password match
+    if ($password === $passwordConf) {
+        // Passwords match, proceed with the update
+        unset($_POST['passwordConf'], $_POST['update-pass'], $_POST['id']);
+        $_POST['password'] = password_hash($password, PASSWORD_DEFAULT);
+        $count = update($table, $id, $_POST);
+
+        $_SESSION['message'] = 'Password updated successfully';
+        $_SESSION['type'] = 'success';
+        header('location: ' . BASE_URL . '/admin/dashboard.php');
+        exit();
+    } else {
+        // Passwords don't match, display an error message
+        $_SESSION['message'] = 'Password and confirmation password do not match';
+        $_SESSION['type'] = 'error';
+        header('location: ' . BASE_URL . '/admin/dashboard.php');
+        exit();
+    }
+}

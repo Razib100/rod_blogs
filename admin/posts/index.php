@@ -74,9 +74,13 @@ adminOnly();
                                     <?php endif; ?>
 
                                     <?php if ($post['tending']): ?>
-                                        <td><a href="edit.php?tending=0&p_id=<?php echo $post['id'] ?>" class="nottending">not tending</a></td>
+                                        <td>
+                                            <button type="button" class="btn" id="not_trending">
+                                                <a href="edit.php?tending=0&p_id=<?php echo $post['id'] ?>">Not Trending</a>
+                                            </button>
+                                        </td>
                                     <?php else: ?>
-                                        <td><a href="edit.php?tending=1&p_id=<?php echo $post['id'] ?>" class="publish">tending</a></td>
+                                        <td><a href="edit.php?tending=1&p_id=<?php echo $post['id'] ?>" class="btn btn-big">Trending</a></td>
                                     <?php endif; ?>
                                     
                                 </tr>

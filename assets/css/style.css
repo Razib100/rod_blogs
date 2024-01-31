@@ -47,6 +47,10 @@
     padding: 0.7rem 1.3rem;
     line-height: 1.3rem;
   }
+
+#not_trending {
+  background: #dc3545 !important;
+}
   
   .btn:hover {
     color: white !important;
