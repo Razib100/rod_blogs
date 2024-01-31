@@ -109,7 +109,7 @@ usersOnly();
 
         <!-- JQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+        <script src="https://cdn.tiny.cloud/1/mchbktdpqzfzj61wpx35s26dz9x3513qeys1qnqc4syqsc2j/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
         tinymce.init({
             selector: 'textarea#basic-example',
