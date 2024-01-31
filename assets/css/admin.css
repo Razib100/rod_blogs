@@ -36,6 +36,7 @@ header {
 	padding: 40px 100px 100px;
 	overflow-y: scroll;
 }
+
 .admin-content .page-title {
 	text-align: center;
 	margin-bottom: 1.5rem;
@@ -74,4 +75,79 @@ td {
 
 form div {
 	margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+
+	.admin-wrapper {
+		display: flex;
+		flex-direction: column;
+		height: calc(100% - 66px);
+		width: 100vw;
+	}
+
+	.admin-wrapper .left-sidebar {
+		width: 100%;
+		background: #234a57;
+		flex: 0;
+	}
+
+	.admin-wrapper .left-sidebar ul {
+		list-style: none;
+		margin: 0px;
+		padding: 0px;
+		color: aliceblue;
+		display: flex;
+		gap: 8px;
+		padding: 8px;
+	}
+
+	.admin-wrapper .left-sidebar ul li a {
+		padding: 4px;
+		display: block;
+		border: 2px solid #fff;
+		border-radius: 6px;
+		text-align: center;
+	}
+
+	.admin-wrapper .left-sidebar ul li a:hover {
+		background: #004044;
+	}
+
+
+	.admin-wrapper .admin-content {
+		height: 100%;
+		padding: 32px 8px;
+		overflow-y: scroll;
+	}
+
+	.admin-content .page-title {
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+
+	table {
+		font-size: 1rem;
+	}
+
+	th, td {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	td {
+		text-align: center;
+	}
+
+	th {
+		text-align: center;
+	}
+
+	.showing{
+		position: absolute;
+		top: 66px;
+		height: 10em;
+	}
+
 }
