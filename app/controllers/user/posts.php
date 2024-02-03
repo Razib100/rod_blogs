@@ -3,12 +3,11 @@
 include(ROOT_PATH . "/app/database/db.php");
 include(ROOT_PATH . "/app/helpers/middleware.php");
 include(ROOT_PATH . "/app/helpers/validatePost.php");
+usersOnly();
 
 $table = 'posts';
-
 $topics = selectAll('topics');
-$posts = selectAll($table);
-
+$posts = selectAll($table, ['user_id' => $_SESSION['id']]);
 
 $errors = array();
 $id = "";
@@ -18,7 +17,7 @@ $topic_id = "";
 $published = "";
 
 if (isset($_GET['id'])) {
-    $post = selectOne($table, ['id' => $_GET['id']]);
+    $post = selectOne($table, ['id' => $_GET['id'], 'user_id' => $_SESSION['id']]);
 
     $id = $post['id'];
     $title = $post['title'];
@@ -32,7 +31,7 @@ if (isset($_GET['delete_id'])) {
     $count = delete($table, $_GET['delete_id']);
     $_SESSION['message'] = "Post deleted successfully";
     $_SESSION['type'] = "success";
-    header("location: " . BASE_URL . "/user/posts/index.php"); 
+    header("location: " . BASE_URL . "/user/posts/index.php");
     exit();
 }
 
@@ -43,7 +42,7 @@ if (isset($_GET['published']) && isset($_GET['p_id'])) {
     $count = update($table, $p_id, ['published' => $published]);
     $_SESSION['message'] = "Post published state changed!";
     $_SESSION['type'] = "success";
-    header("location: " . BASE_URL . "/user/posts/index.php"); 
+    header("location: " . BASE_URL . "/user/posts/index.php");
     exit();
 }
 
@@ -58,12 +57,12 @@ if (isset($_POST['add-post'])) {
         $_POST['published'] = isset($_POST['published']) ? 1 : 0;
         $_POST['view_count'] =  0;
         $_POST['body'] = htmlentities($_POST['body']);
-    
+
         $post_id = create($table, $_POST);
         $_SESSION['message'] = "Post created successfully";
         $_SESSION['type'] = "success";
-        header("location: " . BASE_URL . "/user/posts/index.php"); 
-        exit();    
+        header("location: " . BASE_URL . "/user/posts/index.php");
+        exit();
     } else {
         $title = $_POST['title'];
         $body = $_POST['body'];
@@ -83,16 +82,15 @@ if (isset($_POST['update-post'])) {
         $_POST['user_id'] = $_SESSION['id'];
         $_POST['published'] = isset($_POST['published']) ? 1 : 0;
         $_POST['body'] = htmlentities($_POST['body']);
-    
+
         $post_id = update($table, $id, $_POST);
         $_SESSION['message'] = "Post updated successfully";
         $_SESSION['type'] = "success";
-        header("location: " . BASE_URL . "/user/posts/index.php");       
+        header("location: " . BASE_URL . "/user/posts/index.php");
     } else {
         $title = $_POST['title'];
         $body = $_POST['body'];
         $topic_id = $_POST['topic_id'];
         $published = isset($_POST['published']) ? 1 : 0;
     }
-
 }

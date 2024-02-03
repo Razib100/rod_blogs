@@ -42,7 +42,7 @@ usersOnly();
             <!-- Admin Content -->
             <div class="admin-content">
                 <div class="button-group">
-                    <a href="create.php" class="btn btn-big">Add User</a>
+                    <!-- <a href="create.php" class="btn btn-big">Add User</a> -->
                     <a href="index.php" class="btn btn-big">Manage Users</a>
                 </div>
                 <div class="content">

@@ -26,7 +26,7 @@ usersOnly();
         <!-- Admin Styling -->
         <link rel="stylesheet" href="../../assets/css/admin.css">
 
-        <title>Admin Section - Manage Posts</title>
+        <title>Manage Posts</title>
     </head>
 
     <body>

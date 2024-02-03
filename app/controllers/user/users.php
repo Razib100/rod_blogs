@@ -3,11 +3,11 @@
 include(ROOT_PATH . "/app/database/db.php");
 include(ROOT_PATH . "/app/helpers/middleware.php");
 include(ROOT_PATH . "/app/helpers/validateUser.php");
-
+usersOnly();
 
 $table = 'users';
 
-$admin_users = selectAll($table);
+$admin_users = selectAll($table, ['id' => $_SESSION['id']]);
 
 $errors = array();
 $id = '';
