@@ -27,7 +27,7 @@ usersOnly();
 
 <body>
 
-    <?php include(ROOT_PATH . "/app/includes/adminHeader.php"); ?>
+    <?php include(ROOT_PATH . "/app/includes/userHeader.php"); ?>
 
     <!-- Admin Page Wrapper -->
     <div class="admin-wrapper">
