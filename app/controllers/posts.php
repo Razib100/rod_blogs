@@ -125,7 +125,7 @@ if (isset($_POST['update-post'])) {
     if (count($errors) == 0) {
         $id = $_POST['id'];
         unset($_POST['update-post'], $_POST['id']);
-        $_POST['user_id'] = $_SESSION['id'];
+        $_POST['edited_by'] = $_SESSION['id'];
         $_POST['published'] = isset($_POST['published']) ? 1 : 0;
         $_POST['tending'] = isset($_POST['tending']) ? 1 : 0;
         $_POST['body'] = htmlentities($_POST['body']);

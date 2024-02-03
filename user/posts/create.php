@@ -79,6 +79,13 @@ usersOnly();
                             </select>
                         </div>
                         <div>
+                            <label>Image</label>
+                            <input type="file" name="image" class="text-input" onchange="previewImage()" id="imageInput">
+                        </div>
+                        <div id="imagePreviewContainer">
+                            <img id="imagePreview" style="max-width: 100%; max-height: 200px; margin-top: 10px;">
+                        </div>
+                        <div>
                             <?php if (empty($published)): ?>
                                 <label>
                                     <input type="checkbox" name="published" checked>
