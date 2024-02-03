@@ -75,3 +75,23 @@ function validateLogin($user)
 
     return $errors;
 }
+
+// Password validation while changing password
+function validatePassword($user)
+{
+    $errors = array();
+
+    if (empty($user['password'])) {
+        array_push($errors, 'Password is required');
+    }
+
+    if (strlen($user['password']) < 8) {
+        array_push($errors, 'Password must be at least 8 characters long');
+    }
+
+    if ($user['passwordConf'] !== $user['password']) {
+        array_push($errors, 'Password and confirmation password do not match');
+    }
+
+    return $errors;
+}

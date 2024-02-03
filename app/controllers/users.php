@@ -79,7 +79,6 @@ if (isset($_POST['update-user'])) {
         $_SESSION['type'] = 'success';
         header('location: ' . BASE_URL . '/admin/users/index.php');
         exit();
-
     } else {
         $username = $_POST['username'];
         $admin = isset($_POST['admin']) ? 1 : 0;
@@ -146,27 +145,23 @@ if (isset($_POST['login-fb'])) {
 
 if (isset($_POST['update-pass'])) {
     adminOnly();
-
-    $id = $_POST['id'];
     $password = $_POST['password'];
     $passwordConf = $_POST['passwordConf'];
 
     // Check if the password and confirmation password match
-    if ($password === $passwordConf) {
+    $errors = validatePassword($_POST);
+    if (count($errors) === 0) {
         // Passwords match, proceed with the update
-        unset($_POST['passwordConf'], $_POST['update-pass'], $_POST['id']);
+        unset($_POST['passwordConf'], $_POST['update-pass']);
         $_POST['password'] = password_hash($password, PASSWORD_DEFAULT);
-        $count = update($table, $id, $_POST);
+        $count = update($table, $_SESSION['id'], $_POST);
 
         $_SESSION['message'] = 'Password updated successfully';
         $_SESSION['type'] = 'success';
-        header('location: ' . BASE_URL . '/admin/dashboard.php');
+        header('location: ' . BASE_URL . '/admin/change-pass.php');
         exit();
     } else {
-        // Passwords don't match, display an error message
-        $_SESSION['message'] = 'Password and confirmation password do not match';
-        $_SESSION['type'] = 'error';
-        header('location: ' . BASE_URL . '/admin/dashboard.php');
-        exit();
+        $password = $_POST['password'];
+        $passwordConf = $_POST['passwordConf'];
     }
 }
