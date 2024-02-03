@@ -3,12 +3,12 @@
 
 if (isset($_GET['id'])) {
   $post = selectOne('posts', ['id' => $_GET['id']]);
-    $currentViewCount = $post['view_count'];
-    // Update the view_count by incrementing it by 1
-    $updatedViewCount = $currentViewCount + 1;
-    update('posts', $_GET['id'], ['view_count' => $updatedViewCount]);
-    // Fetch the updated post data
-    $post = selectOne('posts', ['id' => $_GET['id']]);
+  $currentViewCount = $post['view_count'];
+  // Update the view_count by incrementing it by 1
+  $updatedViewCount = $currentViewCount + 1;
+  update('posts', $_GET['id'], ['view_count' => $updatedViewCount]);
+  // Fetch the updated post data
+  $post = selectOne('posts', ['id' => $_GET['id']]);
 }
 $topics = selectAll('topics');
 $posts = selectAll('posts', ['published' => 1]);
@@ -24,29 +24,27 @@ $posts = selectAll('posts', ['published' => 1]);
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
 
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .banner {
-            /*display: none;*/
-            background: url('<?php echo BASE_URL ?>/assets/img/banner.jpg') no-repeat center/cover;
-            height: 50vh;
-        }
-    </style>
+  <style>
+    .banner {
+      /*display: none;*/
+      background: url('<?php echo BASE_URL ?>/assets/img/banner.jpg') no-repeat center/cover;
+      height: 50vh;
+    }
+  </style>
   <title><?php echo $post['title']; ?> | Rod Blogs</title>
 </head>
 
 <body>
   <!-- Facebook Page Plugin SDK -->
   <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=285071545181837&autoLogAppEvents=1">
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=285071545181837&autoLogAppEvents=1">
   </script>
 
   <?php include(ROOT_PATH . "/app/includes/header.php"); ?>
@@ -62,12 +60,20 @@ $posts = selectAll('posts', ['published' => 1]);
         <div class="main-content single">
           <h1 class="post-title"><?php echo $post['title']; ?></h1>
 
+          <?php
+          if (isset($post['image'])) {
+            echo '<div class="single-image">
+            <img id="imagePreview" src="' . BASE_URL . '/assets/images/' . $post['image'] . '" />
+          </div>';
+          }
+          ?>
+
           <div class="post-content">
             <?php echo html_entity_decode($post['body']); ?>
           </div>
-            <div>
-                <span>Total views: <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i></span>
-            </div>
+          <div>
+            <span>Total views: <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i></span>
+          </div>
 
         </div>
       </div>
@@ -78,21 +84,21 @@ $posts = selectAll('posts', ['published' => 1]);
         <div class="section popular">
           <h2 class="section-title">Popular</h2>
 
-          <?php foreach ($posts as $p): ?>
+          <?php foreach ($posts as $p) : ?>
             <div class="post clearfix">
               <a href="single.php?id=<?php echo $p['id']; ?>" class="title">
                 <h4><?php echo $p['title'] ?></h4>
               </a>
             </div>
           <?php endforeach; ?>
-          
+
 
         </div>
 
         <div class="section topics">
           <h2 class="section-title">Category</h2>
           <ul>
-            <?php foreach ($topics as $topic): ?>
+            <?php foreach ($topics as $topic) : ?>
               <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>"><?php echo $topic['name']; ?></a></li>
             <?php endforeach; ?>
 
