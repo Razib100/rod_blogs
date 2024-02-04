@@ -64,8 +64,10 @@ adminOnly();
                                <tr>
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $topic['name']; ?></td>
-                                    <td><a href="edit.php?id=<?php echo $topic['id']; ?>" class="edit">edit</a></td>
-                                    <td><a href="index.php?del_id=<?php echo $topic['id']; ?>" class="delete">delete</a></td>
+                                    <td>
+                                        <a href="edit.php?id=<?php echo $topic['id']; ?>" class="edit hover-text"><span class="tooltip-text" id="top">Edit</span><i class="fas fa-edit"></i></a>
+                                        <a href="index.php?del_id=<?php echo $topic['id']; ?>" class="delete hover-text"><span class="tooltip-text" id="top">Delete</span><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
                                 </tr> 
                             <?php endforeach; ?>
                         </tbody>

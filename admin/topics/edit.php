@@ -60,7 +60,8 @@ adminOnly();
                         </div>
                         <div>
                             <label>Description</label>
-                            <textarea name="description" id="body"><?php echo $description; ?></textarea>
+<!--                            <textarea name="description" id="body">--><?php //echo $description; ?><!--</textarea>-->
+                            <input type="text" name="description" value="<?php echo $description ?>" class="text-input">
                         </div>
 
                         <div>

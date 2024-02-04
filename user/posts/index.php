@@ -57,6 +57,7 @@ usersOnly();
                         <thead>
                             <th>SN</th>
                             <th>Title</th>
+                            <th>Status</th>
                             <th colspan="3">Action</th>
                         </thead>
                         <tbody>
@@ -64,14 +65,15 @@ usersOnly();
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $post['title'] ?></td>
-                                    <td><a href="edit.php?id=<?php echo $post['id']; ?>" class="edit">edit</a></td>
-                                    <td><a href="edit.php?delete_id=<?php echo $post['id']; ?>" class="delete">delete</a></td>
-
                                     <?php if ($post['published']): ?>
-                                        <td><a href="edit.php?published=0&p_id=<?php echo $post['id'] ?>" class="unpublish">unpublish</a></td>
+                                        <td><a href="edit.php?published=0&p_id=<?php echo $post['id'] ?>" class="unpublish hover-text"><span class="tooltip-text" id="top">Published</span><i class="fas fa-check" style="color:#3A833A"></i></a></td>
                                     <?php else: ?>
-                                        <td><a href="edit.php?published=1&p_id=<?php echo $post['id'] ?>" class="publish">publish</a></td>
+                                        <td><a href="edit.php?published=1&p_id=<?php echo $post['id'] ?>" class="publish hover-text"><span class="tooltip-text" id="top">Unpublished</span><i class="fa fa-times" style="color:red"></i></a></td>
                                     <?php endif; ?>
+                                    <td>
+                                        <a href="edit.php?id=<?php echo $post['id']; ?>" class="edit hover-text"><span class="tooltip-text" id="top">Edit</span><i class="fas fa-edit"></i></a>
+                                        <a href="edit.php?delete_id=<?php echo $post['id']; ?>" class="delete hover-text"><span class="tooltip-text" id="top">Delete</span><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
                                     
                                 </tr>
                             <?php endforeach; ?>

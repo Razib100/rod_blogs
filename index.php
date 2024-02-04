@@ -62,7 +62,12 @@ if (isset($_GET['t_id'])) {
       <div class="post-wrapper">
         <?php foreach ($tendings as $post): ?>
           <div class="post">
-              <img src="<?php echo BASE_URL . '/assets/images/' . $post['image']; ?>" alt="" class="slider-image">
+              <?php
+              // Assuming BASE_URL is defined somewhere in your code
+              $defaultImage = BASE_URL . '/assets/default.jpg';
+              $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
+              ?>
+              <img src="<?php echo $imageUrl; ?>" alt="" class="slider-image">
             <div class="post-info">
               <h4><a href="single.php?id=<?php echo $post['id']; ?>">
                       <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
@@ -89,6 +94,13 @@ if (isset($_GET['t_id'])) {
 
         <?php foreach ($posts as $post): ?>
           <div class="post clearfix">
+              <?php
+              // Assuming BASE_URL is defined somewhere in your code
+              $defaultImage = BASE_URL . '/assets/default.jpg';
+              $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
+              ?>
+
+              <img src="<?php echo $imageUrl; ?>" alt="" class="post-image">
             <div class="post-preview">
               <h2><a href="single.php?id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h2>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
