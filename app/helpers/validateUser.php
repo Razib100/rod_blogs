@@ -80,7 +80,16 @@ function validateLogin($user)
 function validatePassword($user)
 {
     $errors = array();
-
+    $secreatKey = "6LfmYkcpAAAAABJ-ddihcwGn4aWRRmgdKoIvq6yd";
+//    $secreatKey = "6Ldu1E0pAAAAAFSqu1Fxu85tvVp3LmZqKrYnoB-G";
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $response = $_POST['g-recaptcha-response'];
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secreatKey&response=$response&remoteip=$ip";
+    $fire = file_get_contents($url);
+    $data = json_decode($fire);
+    if($data->success == false){
+        array_push($errors, 'Recaptcha is required');
+    }
     if (empty($user['password'])) {
         array_push($errors, 'Password is required');
     }

@@ -152,7 +152,7 @@ if (isset($_POST['update-pass'])) {
     $errors = validatePassword($_POST);
     if (count($errors) === 0) {
         // Passwords match, proceed with the update
-        unset($_POST['passwordConf'], $_POST['update-pass']);
+        unset($_POST['passwordConf'], $_POST['update-pass'], $_POST['g-recaptcha-response']);
         $_POST['password'] = password_hash($password, PASSWORD_DEFAULT);
         $count = update($table, $_SESSION['id'], $_POST);
 

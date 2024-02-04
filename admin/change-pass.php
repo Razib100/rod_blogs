@@ -18,7 +18,7 @@ adminOnly();
 
     <!-- Custom Styling -->
     <link rel="stylesheet" href="../assets/css/style.css">
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Admin Styling -->
     <link rel="stylesheet" href="../assets/css/admin.css">
 
@@ -51,7 +51,10 @@ adminOnly();
                         <label>Password Confirmation</label>
                         <input type="password" name="passwordConf" value="<?php echo $passwordConf; ?>" class="text-input" required>
                     </div>
-
+                    <div>
+                        <div class="g-recaptcha" data-sitekey="6LfmYkcpAAAAAJjarUpak9joQMFTSbS3HNDHTX9o"></div>
+                        <!--          <div class="g-recaptcha" data-sitekey="6Ldu1E0pAAAAANP0oGwAhBUcpw0iY2Sto75GVHfJ"></div>-->
+                    </div>
                     <div>
                         <button type="submit" name="update-pass" class="btn btn-big">Update Password</button>
                     </div>
