@@ -6,14 +6,17 @@ $posts = array();
 $postsTitle = 'Recent Posts';
 
 if (isset($_GET['t_id'])) {
+    $id = $_GET['t_id'];
+    $tendings = getTendingPosts($id);
   $posts = getPostsByTopicId($_GET['t_id']);
   $postsTitle = "You searched for posts under '" . $_GET['name'] . "'";
 } else if (isset($_POST['search-term'])) {
   $postsTitle = "You searched for '" . $_POST['search-term'] . "'";
   $posts = searchPosts($_POST['search-term']);
+    $tendings = getTendingPosts(null);
 } else {
   $posts = getPublishedPosts();
-  $tendings = getTendingPosts();
+  $tendings = getTendingPosts(null);
 }
 
 ?>

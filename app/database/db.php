@@ -137,21 +137,53 @@ function getPublishedPosts()
     $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
 }
-function getTendingPosts()
+//function getTendingPosts($id=null)
+//{
+//    global $conn;
+//    $sql = "SELECT p.*, u.username
+//            FROM posts AS p
+//            JOIN users AS u ON p.user_id = u.id
+//            WHERE p.tending = ?
+//            ORDER BY p.created_at DESC
+//            LIMIT 10";
+//
+//    $stmt = executeQuery($sql, ['tending' => 1]);
+//    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+//    return $records;
+//}
+
+function getTendingPosts($id = null)
 {
     global $conn;
+
+    // Base SQL query
     $sql = "SELECT p.*, u.username 
             FROM posts AS p 
-            JOIN users AS u ON p.user_id = u.id 
-            WHERE p.tending = ?
-            ORDER BY p.created_at DESC
-            LIMIT 10";
+            JOIN users AS u ON p.user_id = u.id";
 
-    $stmt = executeQuery($sql, ['tending' => 1]);
+    // Check if $id is provided
+    if (!empty($id)) {
+        // Append WHERE condition for topic_id if $id is provided
+        $sql .= " WHERE p.topic_id = ?";
+        $params = [$id];
+    } else {
+        $params = [];
+    }
+
+    // Append common WHERE condition for tending posts
+    $sql .= " AND p.tending = ?
+              ORDER BY p.created_at DESC
+              LIMIT 10";
+    $params[] = 1;
+
+    // Execute the query
+    $stmt = executeQuery($sql, $params);
+
+    // Fetch the records
     $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
     return $records;
 }
-
 
 function getPostsByTopicId($topic_id)
 {
