@@ -19,6 +19,9 @@ if (isset($_GET['t_id'])) {
   $tendings = getTendingPosts(null);
 }
 $text = getBannerText();
+$banner = getBanner();
+$logo = getLogo();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +42,7 @@ $text = getBannerText();
   <link rel="stylesheet" href="assets/css/style.css">
     <style>
         .banner {
-            background: url('<?php echo BASE_URL ?>/assets/img/banner.jpg') no-repeat center/cover;
+            background: url('<?php echo BASE_URL . '/assets/images/' . $banner['image'] ?>') no-repeat center/cover;
             height: 50vh;
         }
     </style>

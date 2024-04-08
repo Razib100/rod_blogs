@@ -187,14 +187,62 @@ function getBannerText()
     $sql = "SELECT bt.*, u.username
             FROM banner_text AS bt
             LEFT JOIN users AS u ON bt.user_id = u.id
-            WHERE bt.status = ?
-            ORDER BY bt.created_at DESC
+            WHERE bt.status = 1
+            ORDER BY RAND()
             LIMIT 1";
 
-    $stmt = executeQuery($sql, [1]);
-    $record = $stmt->get_result()->fetch_assoc();
+    $result = $conn->query($sql);
 
-    return $record;
+    if ($result && $result->num_rows > 0) {
+        $record = $result->fetch_assoc();
+        return $record;
+    } else {
+        return null; // No banner text with status 1 found
+    }
+}
+
+function getBanner()
+{
+    global $conn;
+    $sql = "SELECT * FROM banner
+            WHERE status = ?
+            ORDER BY RAND()
+            LIMIT 1";
+
+    $status = 1;
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $status);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $record = $result->fetch_assoc();
+        return $record;
+    } else {
+        return null; // No banner with status 1 found
+    }
+}
+
+function getLogo()
+{
+    global $conn;
+    $sql = "SELECT * FROM logo
+            WHERE status = ?
+            ORDER BY RAND()
+            LIMIT 1";
+
+    $status = 1;
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $status);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $record = $result->fetch_assoc();
+        return $record;
+    } else {
+        return null; // No logo with status 1 found
+    }
 }
 
 
