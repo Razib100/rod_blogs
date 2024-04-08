@@ -25,7 +25,7 @@ adminOnly();
 
         <!-- Admin Styling -->
         <link rel="stylesheet" href="../../assets/css/admin.css">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
         <title>Admin Section - Add Post</title>
     </head>
 
@@ -77,6 +77,11 @@ adminOnly();
                                 <?php endforeach; ?>
 
                             </select>
+                        </div>
+                        <div>
+                            <label>SEO Tags</label>
+                            <!-- Input field for multiple tags -->
+                            <input id="tags-input" name="tags" class="text-input" placeholder="Type and press Enter to add tags">
                         </div>
                         <div>
                             <label>Image</label>
@@ -183,7 +188,15 @@ adminOnly();
         });
     </script>
         <script src="../../assets/js/scripts.js"></script>
-
+         <!-- Include Tagify JS -->
+        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+        <script>
+            // Initialize Tagify on the input field
+            var input = document.getElementById('tags-input');
+            var tagify = new Tagify(input, {
+                duplicates: false // Disallow duplicate tags
+            });
+        </script>
     </body>
 
 </html>
