@@ -137,20 +137,22 @@ function getPublishedPosts()
     $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
 }
-//function getTendingPosts($id=null)
-//{
-//    global $conn;
-//    $sql = "SELECT p.*, u.username
-//            FROM posts AS p
-//            JOIN users AS u ON p.user_id = u.id
-//            WHERE p.tending = ?
-//            ORDER BY p.created_at DESC
-//            LIMIT 10";
-//
-//    $stmt = executeQuery($sql, ['tending' => 1]);
-//    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-//    return $records;
-//}
+function getBannerText()
+{
+    global $conn;
+    $sql = "SELECT bt.*, u.username
+            FROM banner_text AS bt
+            LEFT JOIN users AS u ON bt.user_id = u.id
+            WHERE bt.status = ?
+            ORDER BY bt.created_at DESC
+            LIMIT 1";
+
+    $stmt = executeQuery($sql, [1]);
+    $record = $stmt->get_result()->fetch_assoc();
+
+    return $record;
+}
+
 
 function getTendingPosts($id = null)
 {

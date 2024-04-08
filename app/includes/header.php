@@ -31,7 +31,9 @@
 </header>
 <section class="banner">
     <div class="banner-content">
-        <h2 style="color: #fff !important;">Welcome to <span style="color: #05f7ff !important;">Rod</span>Blogs!</h2>
-        <p>Explore the latest and greatest content on our platform.</p>
+<!--        <h2 style="color: #fff !important;">Welcome to <span style="color: #05f7ff !important;">Rod</span>Blogs!</h2>-->
+<!--        <p>Explore the latest and greatest content on our platform.</p>-->
+        <h2 style="color: #fff !important;"><?php echo $text['title'] ?></h2>
+        <p><?php echo $text['sub_title'] ?></p>
     </div>
 </section>

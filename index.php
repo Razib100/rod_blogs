@@ -18,7 +18,7 @@ if (isset($_GET['t_id'])) {
   $posts = getPublishedPosts();
   $tendings = getTendingPosts(null);
 }
-
+$text = getBannerText();
 ?>
 <!DOCTYPE html>
 <html lang="en">
