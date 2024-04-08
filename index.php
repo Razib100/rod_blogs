@@ -136,8 +136,14 @@ $text = getBannerText();
         <div class="section topics">
           <h2 class="section-title">Category</h2>
           <ul>
-            <?php foreach ($topics as $key => $topic): ?>
-              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>"><?php echo $topic['name']; ?></a></li>
+            <?php foreach ($topics as $key => $topic): 
+               // Convert the string to lowercase
+              $lowercaseString = strtolower($topic['name']);
+              
+              // Replace spaces and non-alphanumeric characters with an empty string
+              $topic['name_url'] = preg_replace('/[^a-z0-9]+/', '', $lowercaseString);
+              ?>
+              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name_url'] ?>"><?php echo $topic['name']; ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
