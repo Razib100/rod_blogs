@@ -58,9 +58,19 @@ adminOnly();
                             <th colspan="2">Action</th>
                         </thead>
                         <tbody>
-                            <?php foreach ($admin_users as $key => $user): ?>
+                            <?php 
+                            // Define pagination variables
+                            $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $perPage = 10;
+
+                            // Fetch records
+                            $conditions = []; // Optional conditions
+                            $records = getPagination($table, $conditions, $pageNumber, $perPage);
+                            // Calculate starting serial number
+                            $startingSerial = ($pageNumber - 1) * $perPage + 1;
+                            foreach ($records as $key => $user): ?>
                                 <tr>
-                                    <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo ($startingSerial + $key); ?></td>
                                     <td><?php echo $user['username']; ?></td>
                                     <td><?php echo $user['email']; ?></td>
                                     <td>
@@ -71,6 +81,24 @@ adminOnly();
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <!-- Pagination links -->
+                    <?php
+                    // Assuming $pageNumber and $perPage are already defined
+                    $totalRecords = count(selectAll($table, $conditions)); // Get total records
+                    $totalPages = ceil($totalRecords / $perPage); // Calculate total pages
+
+                    echo "<div class='pagination'>";
+                    if ($pageNumber > 1) {
+                        echo "<a href='?page=1'>First</a>";
+                        echo "<a href='?page=" . ($pageNumber - 1) . "'>Previous</a>";
+                    }
+                    echo "<span> Page $pageNumber of $totalPages </span>";
+                    if ($pageNumber < $totalPages) {
+                        echo "<a href='?page=" . ($pageNumber + 1) . "'>Next</a>";
+                        echo "<a href='?page=$totalPages'>Last</a>";
+                    }
+                    echo "</div>";
+                    ?>
                 </div>
             </div>
             <!-- // Admin Content -->

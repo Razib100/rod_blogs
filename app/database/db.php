@@ -50,6 +50,50 @@ function selectAll($table, $conditions = [])
     }
 }
 
+function getPagination($table, $conditions = [], $pageNumber = 1, $perPage = 10)
+{
+    global $conn;
+
+    // Calculate the offset
+    $offset = ($pageNumber - 1) * $perPage;
+
+    $sql = "SELECT * FROM $table";
+    
+    if (!empty($conditions)) {
+        $sql .= " WHERE ";
+        $conditionsStr = [];
+        foreach ($conditions as $key => $value) {
+            $conditionsStr[] = "$key = ?";
+        }
+        $sql .= implode(" AND ", $conditionsStr);
+    }
+
+    // Add pagination limit and offset
+    $sql .= " LIMIT ? OFFSET ?";
+
+    // Prepare and bind parameters
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters for conditions
+    if (!empty($conditions)) {
+        $types = str_repeat("s", count($conditions));
+        $bindParams = array_values($conditions);
+        $stmt->bind_param($types, ...$bindParams);
+    }
+
+    // Bind parameters for pagination
+    $stmt->bind_param('ii', $perPage, $offset);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result
+    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    // Return the records
+    return $records;
+}
+
 
 function selectOne($table, $conditions)
 {

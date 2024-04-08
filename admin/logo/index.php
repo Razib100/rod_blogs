@@ -62,9 +62,19 @@ adminOnly();
                 <th colspan="3">Action</th>
                 </thead>
                 <tbody>
-                <?php foreach ($logos as $key => $logo): ?>
+                <?php 
+                // Define pagination variables
+                $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
+                $perPage = 10;
+
+                // Fetch records
+                $conditions = []; // Optional conditions
+                $records = getPagination($table, $conditions, $pageNumber, $perPage);
+                // Calculate starting serial number
+                $startingSerial = ($pageNumber - 1) * $perPage + 1;
+                foreach ($logos as $key => $logo): ?>
                     <tr>
-                        <td><?php echo $key + 1; ?></td>
+                        <td><?php echo ($startingSerial + $key); ?></td>
                         <td><?php echo $logo['title'] ?></td>
                         <td class="imagePreviewContainer">
                             <img id="imagePreview" src="<?php echo BASE_URL . '/assets/images/' . $logo['image'] ?>" style="max-width: 45%; max-height: 100px; padding-top: 10px;">
@@ -80,7 +90,23 @@ adminOnly();
 
                 </tbody>
             </table>
+            <?php
+            // Assuming $pageNumber and $perPage are already defined
+            $totalRecords = count(selectAll($table, $conditions)); // Get total records
+            $totalPages = ceil($totalRecords / $perPage); // Calculate total pages
 
+            echo "<div class='pagination'>";
+            if ($pageNumber > 1) {
+                echo "<a href='?page=1'>First</a>";
+                echo "<a href='?page=" . ($pageNumber - 1) . "'>Previous</a>";
+            }
+            echo "<span> Page $pageNumber of $totalPages </span>";
+            if ($pageNumber < $totalPages) {
+                echo "<a href='?page=" . ($pageNumber + 1) . "'>Next</a>";
+                echo "<a href='?page=$totalPages'>Last</a>";
+            }
+            echo "</div>";
+            ?>
         </div>
 
     </div>

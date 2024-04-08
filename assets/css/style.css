@@ -703,3 +703,31 @@
   font-family: Arial;
   text-align: center;
 }
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination a {
+  color: #007bff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+.pagination a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+.pagination span {
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: #fff;
+}
