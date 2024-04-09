@@ -47,12 +47,12 @@ $logo = getLogo();
 
   <!-- Custom Styling -->
   <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .banner {
-            background: url('<?php echo BASE_URL . '/assets/images/' . $banner['image'] ?>') no-repeat center/cover;
-            height: 50vh;
-        }
-    </style>
+  <style>
+      .banner {
+          background: url('<?php echo BASE_URL . '/assets/images/' . $banner['image'] ?>') no-repeat center/cover;
+          height: 50vh;
+      }
+  </style>
   <title>Blog</title>
 </head>
 
@@ -67,6 +67,7 @@ $logo = getLogo();
   <div class="page-wrapper">
 
     <!-- Post Slider -->
+    <?php if(count($trendingPosts) > 0): ?>
     <div class="post-slider">
       <h1 class="slider-title">Trending Posts</h1>
       <i class="fas fa-chevron-left prev"></i>
@@ -96,6 +97,7 @@ $logo = getLogo();
       </div>
 
     </div>
+    <?php endif; ?>
     <!-- // Post Slider -->
 
     <!-- Content -->
