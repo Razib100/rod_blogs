@@ -6,7 +6,7 @@ include(ROOT_PATH . "/app/helpers/validateLogo.php");
 
 $table = 'logo';
 $logos = selectAll($table);
-
+$logo = getLogo();
 
 $errors = array();
 $id = "";

@@ -6,7 +6,7 @@ include(ROOT_PATH . "/app/helpers/validateBanner.php");
 
 $table = 'banner';
 $banners = selectAll($table);
-
+$logo = getLogo();
 
 $errors = array();
 $id = "";

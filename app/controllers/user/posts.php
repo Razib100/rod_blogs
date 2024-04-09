@@ -8,6 +8,7 @@ usersOnly();
 $table = 'posts';
 $topics = selectAll('topics');
 $posts = selectAll($table, ['user_id' => $_SESSION['id']]);
+$logo = getLogo();
 
 $errors = array();
 $id = "";

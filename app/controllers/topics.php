@@ -12,7 +12,7 @@ $name = '';
 $description = '';
 
 $topics = selectAll($table);
-
+$logo = getLogo();
 
 if (isset($_POST['add-topic'])) {
     adminOnly();

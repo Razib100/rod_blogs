@@ -8,6 +8,7 @@ usersOnly();
 $table = 'users';
 
 $admin_users = selectAll($table, ['id' => $_SESSION['id']]);
+$logo = getLogo();
 
 $errors = array();
 $id = '';

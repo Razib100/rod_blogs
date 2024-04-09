@@ -8,6 +8,7 @@ include(ROOT_PATH . "/app/helpers/validateUser.php");
 $table = 'users';
 
 $admin_users = selectAll($table);
+$logo = getLogo();
 
 $errors = array();
 $id = '';

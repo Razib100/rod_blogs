@@ -12,7 +12,7 @@ $name = '';
 $description = '';
 
 $bannerTexts = selectAll($table);
-
+$logo = getLogo();
 
 if (isset($_POST['add-text'])) {
     adminOnly();

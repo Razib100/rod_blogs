@@ -8,7 +8,7 @@ $table = 'posts';
 
 $topics = selectAll('topics');
 $posts = selectAll($table);
-
+$logo = getLogo();
 
 $errors = array();
 $id = "";
