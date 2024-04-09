@@ -27,11 +27,36 @@
       <?php endif; ?>
     </ul>
 </header>
-<section class="banner">
-    <div class="banner-content">
+<!--<section class="banner">-->
+<!--    <div class="banner-content">-->
 <!--        <h2 style="color: #fff !important;">Welcome to <span style="color: #05f7ff !important;">Rod</span>Blogs!</h2>-->
 <!--        <p>Explore the latest and greatest content on our platform.</p>-->
-        <h2 style="color: #fff !important;"><?php echo $text['title'] ?></h2>
+<!--        <h2 style="color: #fff !important;">--><?php //echo $text['title'] ?><!--</h2>-->
+<!--        <p>--><?php //echo $text['sub_title'] ?><!--</p>-->
+<!--    </div>-->
+<!--</section>-->
+<section class="banner">
+    <div class="banner-content">
+		<?php
+		// Assuming $text['title'] contains the title text
+		$title = $text['title'];
+		// Split the title into words
+		$words = explode(' ', $title);
+		// Initialize variables for the words before and after index 2
+		$beforeThirdWord = '';
+		$afterThirdWord = '';
+		// Loop through each word and accumulate the words before and after index 2
+		foreach ($words as $key => $word) {
+			if ($key < 2) {
+				$beforeThirdWord .= $word . ' ';
+			} elseif ($key == 2) {
+				$afterThirdWord .= '<span style="color: #05f7ff !important;">' . $word . ' </span>';
+			} else {
+				$afterThirdWord .= $word . ' ';
+			}
+		}
+		?>
+        <h2 style="color: #fff !important;"><?php echo $beforeThirdWord . $afterThirdWord; ?></h2>
         <p><?php echo $text['sub_title'] ?></p>
     </div>
 </section>
