@@ -1,6 +1,6 @@
 <header>
     <a href="<?php echo BASE_URL ?>" class="logo">
-    <img style="height:60px;margin: 3px;" src="<?php echo BASE_URL . '/assets/images/' . $logo['image'] ?>" alt="<?= $logo['title'] ?>" title="<?= $logo['title'] ?>">
+    <img style="height:60px;margin: 3px;border-radius: 5px" src="<?php echo BASE_URL . '/assets/images/' . $logo['image'] ?>" alt="<?= $logo['title'] ?>" title="<?= $logo['title'] ?>">
     </a>
     <i class="fa fa-bars menu-toggle"></i>
     <ul class="nav">
