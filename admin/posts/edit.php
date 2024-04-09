@@ -60,6 +60,11 @@ adminOnly();
                         <textarea name="body" id="basic-example"><?php echo $body ?></textarea><br>
                     </div>
                     <div>
+                        <label>SEO Tag</label>
+                        <!-- Input field for multiple tags -->
+                        <input id="tags-input" name="tag" class="text-input" placeholder="Type and press Enter to add tags" value="<?= $tag;?>">
+                    </div>
+                    <div>
                         <label>Topic</label>
                         <select name="topic_id" class="text-input">
                             <option value=""></option>
@@ -72,11 +77,6 @@ adminOnly();
                             <?php endforeach; ?>
 
                         </select>
-                    </div>
-                    <div>
-                        <label>SEO Tags</label>
-                        <!-- Input field for multiple tags -->
-                        <input id="tags-input" name="tags" class="text-input" placeholder="Type and press Enter to add tags">
                     </div>
                     <div>
                         <label>Image</label>

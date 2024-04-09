@@ -17,6 +17,7 @@ $body = "";
 $topic_id = "";
 $published = "";
 $tending = "";
+$tag = "";
 
 if (isset($_GET['id'])) {
     $post = selectOne($table, ['id' => $_GET['id']]);
@@ -28,6 +29,7 @@ if (isset($_GET['id'])) {
     $topic_id = $post['topic_id'];
     $published = $post['published'];
     $tending = $post['tending'];
+    $tag = $post['tag'];
 }
 
 if (isset($_GET['delete_id'])) {
@@ -83,6 +85,18 @@ if (isset($_POST['add-post'])) {
             array_push($errors, "This is Tending Post image required");
         }
     }
+    
+    if (isset($_POST['tag']) && $_POST['tag']) {
+        $array = json_decode($_POST['tag'], true);
+
+        $values = array();
+        foreach ($array as $item) {
+            $values[] = $item['value'];
+        }
+
+        $result = implode(',', $values);
+        $_POST['tag'] = $result;
+    }
 
     if (count($errors) == 0) {
         unset($_POST['add-post']);
@@ -90,6 +104,7 @@ if (isset($_POST['add-post'])) {
         $_POST['published'] = isset($_POST['published']) ? 1 : 0;
         $_POST['view_count'] =  0;
         $_POST['body'] = htmlentities($_POST['body']);
+        $_POST['tag'] = $_POST['tag'];
     
         $post_id = create($table, $_POST);
         $_SESSION['message'] = "Post created successfully";
@@ -101,6 +116,7 @@ if (isset($_POST['add-post'])) {
         $body = $_POST['body'];
         $topic_id = $_POST['topic_id'];
         $published = isset($_POST['published']) ? 1 : 0;
+        $tag = $_POST['tag'];
     }
 }
 
@@ -122,13 +138,26 @@ if (isset($_POST['update-post'])) {
         }
     }
 
+    if (isset($_POST['tag']) && $_POST['tag']) {
+        $array = json_decode($_POST['tag'], true);
+
+        $values = array();
+        foreach ($array as $item) {
+            $values[] = $item['value'];
+        }
+
+        $result = implode(',', $values);
+        $_POST['tag'] = $result;
+    }
+
     if (count($errors) == 0) {
         $id = $_POST['id'];
         unset($_POST['update-post'], $_POST['id']);
-        $_POST['edited_by'] = $_SESSION['id'];
+        // $_POST['edited_by'] = $_SESSION['id'];
         $_POST['published'] = isset($_POST['published']) ? 1 : 0;
         $_POST['tending'] = isset($_POST['tending']) ? 1 : 0;
         $_POST['body'] = htmlentities($_POST['body']);
+        $_POST['tag'] = $_POST['tag'];
     
         $post_id = update($table, $id, $_POST);
         $_SESSION['message'] = "Post updated successfully";
@@ -139,6 +168,7 @@ if (isset($_POST['update-post'])) {
         $body = $_POST['body'];
         $topic_id = $_POST['topic_id'];
         $published = isset($_POST['published']) ? 1 : 0;
+        $tag = $_POST['tag'];
     }
 
 }
