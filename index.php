@@ -121,7 +121,7 @@ $logo = getLogo();
               <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at'])); ?></i>
                 <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i>
               <p class="preview-text">
-                <?php echo html_entity_decode(substr($post['body'], 0, 150) . '...'); ?>
+                <?php echo strip_tags(html_entity_decode(substr($post['body'], 0, 150) . '...'), '<b><i>'); ?>
               </p>
               <a href="single.php?id=<?php echo $post['id']; ?>" class="btn read-more">Read More</a>
             </div>
