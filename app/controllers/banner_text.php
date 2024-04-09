@@ -21,6 +21,7 @@ if (isset($_POST['add-text'])) {
     if (count($errors) === 0) {
         unset($_POST['add-text']);
         $_POST['status'] = isset($_POST['status']) ? 1 : 0;
+        $_POST['user_id'] = $_SESSION['id'];
         $topic_id = create($table, $_POST);
         $_SESSION['message'] = 'Banner text created successfully';
         $_SESSION['type'] = 'success';
