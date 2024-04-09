@@ -181,6 +181,25 @@ function getPublishedPosts()
     $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
 }
+
+function getPublishedPostsPagination($page, $perPage)
+{
+    global $conn;
+
+    // Calculate the offset based on the page number and number of items per page
+    $offset = ($page - 1) * $perPage;
+
+    $sql = "SELECT p.*, u.username FROM posts AS p JOIN users AS u ON p.user_id=u.id WHERE p.published=? LIMIT ?, ?";
+
+    // Execute the query with pagination parameters
+    $stmt = executeQuery($sql, ['published' => 1, $offset, $perPage]);
+
+    // Fetch the records
+    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    return $records;
+}
+
 function getBannerText()
 {
     global $conn;
@@ -289,7 +308,23 @@ function getPostsByTopicId($topic_id)
     return $records;
 }
 
+function getPostsByTopicIdPagination($topic_id, $page, $perPage)
+{
+    global $conn;
 
+    // Calculate the offset based on the page number and number of items per page
+    $offset = ($page - 1) * $perPage;
+
+    $sql = "SELECT p.*, u.username FROM posts AS p JOIN users AS u ON p.user_id=u.id WHERE p.published=? AND p.topic_id=? LIMIT ?, ?";
+
+    // Execute the query with pagination parameters
+    $stmt = executeQuery($sql, ['published' => 1, 'topic_id' => $topic_id, $offset, $perPage]);
+
+    // Fetch the records
+    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    return $records;
+}
 
 function searchPosts($term)
 {
@@ -306,5 +341,31 @@ function searchPosts($term)
 
     $stmt = executeQuery($sql, ['published' => 1, 'title' => $match, 'body' => $match]);
     $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $records;
+}
+
+function searchPostsPagination($term, $page, $perPage)
+{
+    $match = '%' . $term . '%';
+    global $conn;
+
+    // Calculate the offset based on the page number and number of items per page
+    $offset = ($page - 1) * $perPage;
+
+    $sql = "SELECT 
+                p.*, u.username 
+            FROM posts AS p 
+            JOIN users AS u 
+            ON p.user_id=u.id 
+            WHERE p.published=?
+            AND (p.title LIKE ? OR p.body LIKE ?)
+            LIMIT ?, ?";
+
+    // Execute the query with pagination parameters
+    $stmt = executeQuery($sql, ['published' => 1, 'title' => $match, 'body' => $match, $offset, $perPage]);
+
+    // Fetch the records
+    $records = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
     return $records;
 }

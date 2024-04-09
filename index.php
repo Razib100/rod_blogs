@@ -5,19 +5,26 @@ include(ROOT_PATH . "/app/controllers/topics.php");
 $posts = array();
 $postsTitle = 'Recent Posts';
 
+$pageNumber = isset($_GET['page']) ? $_GET['page'] : 1; // Get the page number from the URL parameter
+$perPage = 10; // Number of items per page
+
 if (isset($_GET['t_id'])) {
-    $id = $_GET['t_id'];
-    $tendings = getTendingPosts($id);
+  $id = $_GET['t_id'];
+  $trendingPosts = getTendingPosts($id);
   $posts = getPostsByTopicId($_GET['t_id']);
+  $paginationPosts = getPostsByTopicIdPagination($_GET['t_id'], $pageNumber, $perPage);
   $postsTitle = "You searched for posts under '" . $_GET['name'] . "'";
 } else if (isset($_POST['search-term'])) {
   $postsTitle = "You searched for '" . $_POST['search-term'] . "'";
   $posts = searchPosts($_POST['search-term']);
-    $tendings = getTendingPosts(null);
+  $paginationPosts = searchPostsPagination($_POST['search-term'], $pageNumber, $perPage);
+  $trendingPosts = getTendingPosts(null);
 } else {
   $posts = getPublishedPosts();
-  $tendings = getTendingPosts(null);
+  $paginationPosts = getPublishedPostsPagination($pageNumber, $perPage);
+  $trendingPosts = getTendingPosts(null);
 }
+
 $text = getBannerText();
 $banner = getBanner();
 $logo = getLogo();
@@ -66,7 +73,7 @@ $logo = getLogo();
       <i class="fas fa-chevron-right next"></i>
 
       <div class="post-wrapper">
-        <?php foreach ($tendings as $post): ?>
+        <?php foreach ($trendingPosts as $post): ?>
           <div class="post">
               <?php
               // Assuming BASE_URL is defined somewhere in your code
@@ -98,7 +105,7 @@ $logo = getLogo();
       <div class="main-content">
         <h1 class="recent-post-title"><?php echo $postsTitle ?></h1>
 
-        <?php foreach ($posts as $post): ?>
+        <?php foreach ($paginationPosts as $post): ?>
           <div class="post clearfix">
               <?php
               // Assuming BASE_URL is defined somewhere in your code
@@ -120,9 +127,24 @@ $logo = getLogo();
             </div>
           </div>    
         <?php endforeach; ?>
-        
+        <!-- Pagination links -->
+        <?php
+        // Assuming $pageNumber and $perPage are already defined
+        $totalRecords = count($posts); // Get total records
+        $totalPages = ceil($totalRecords / $perPage); // Calculate total pages
 
-
+        echo "<div class='pagination'>";
+        if ($pageNumber > 1) {
+            echo "<a href='?page=1'>First</a>";
+            echo "<a href='?page=" . ($pageNumber - 1) . "'>Previous</a>";
+        }
+        echo "<span> Page $pageNumber of $totalPages </span>";
+        if ($pageNumber < $totalPages) {
+            echo "<a href='?page=" . ($pageNumber + 1) . "'>Next</a>";
+            echo "<a href='?page=$totalPages'>Last</a>";
+        }
+        echo "</div>";
+        ?>
       </div>
       <!-- // Main Content -->
 
