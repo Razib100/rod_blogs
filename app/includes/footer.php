@@ -3,7 +3,7 @@
     <div class="footer-content">
 
       <div class="footer-section about">
-        <img style="width: 100px;margin: 5px;" src="<?php echo BASE_URL . '/assets/images/' . $logo['image'] ?>" alt="<?= $logo['title'] ?>" title="<?= $logo['title'] ?>">
+        <img style="height: 60px;" src="<?php echo BASE_URL . '/assets/images/' . $logo['image'] ?>" alt="<?= $logo['title'] ?>" title="<?= $logo['title'] ?>">
         <p>
         This site is dedicated to analyzing and discussing various topics on Football in order to foster a better sense of community and greater understanding about the beautiful game we all love so much.
         </p>
