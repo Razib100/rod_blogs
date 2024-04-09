@@ -12,7 +12,9 @@ if (isset($_GET['id'])) {
 }
 $topics = selectAll('topics');
 $posts = selectAll('posts', ['published' => 1]);
-
+$text = getBannerText();
+$banner = getBanner();
+$logo = getLogo();
 
 ?>
 <!DOCTYPE html>
@@ -34,11 +36,14 @@ $posts = selectAll('posts', ['published' => 1]);
   <style>
     .banner {
       /*display: none;*/
-      background: url('<?php echo BASE_URL ?>/assets/img/banner.jpg') no-repeat center/cover;
+      background: url('<?php echo BASE_URL . '/assets/images/' . $banner['image'] ?>') no-repeat center/cover;
       height: 50vh;
     }
   </style>
   <title><?php echo $post['title']; ?> | Rod Blogs</title>
+  <meta name="description" content="<?php echo $post['title']; ?>">
+  <meta name="keywords" content="<?= $post['tag']; ?>">
+  <link rel="canonical" href="<?= BASE_URL . '/assets/images/' . $post['image']; ?>">
 </head>
 
 <body>
@@ -91,8 +96,6 @@ $posts = selectAll('posts', ['published' => 1]);
               </a>
             </div>
           <?php endforeach; ?>
-
-
         </div>
 
         <div class="section topics">
