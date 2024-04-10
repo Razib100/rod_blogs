@@ -115,9 +115,9 @@ $logo = getLogo();
               $lowercaseString = strtolower($topic['name']);
               
               // Replace spaces and non-alphanumeric characters with an empty string
-              $topic['name_url'] = preg_replace('/[^a-z0-9]+/', '', $lowercaseString);
+              $topic['name_url'] = preg_replace('/[^a-z0-9]+/', '-', $lowercaseString).'-'.$topic['id'];
               ?>
-              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name_url'] ?>"><?php echo $topic['name']; ?></a></li>
+              <li><a href="<?php echo BASE_URL . '/index.php/category/'. $topic['name_url'] ?>"><?php echo $topic['name']; ?></a></li>
             <?php endforeach; ?>
 
           </ul>

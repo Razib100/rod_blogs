@@ -8,12 +8,28 @@ $postsTitle = 'Recent Posts';
 $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1; // Get the page number from the URL parameter
 $perPage = 10; // Number of items per page
 
-if (isset($_GET['t_id'])) {
+$uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri_segments = explode('/', $uri_path);
+
+if ( isset($uri_segments[3]) && $uri_segments[3] == 'category') {
+  function getLastIntegerFromString($str) {
+    // Match the last integer in the string (positive only)
+    if (preg_match_all('/\b\d+\b/', $str, $matches)) {
+        // Get the last match
+        $lastInteger = end($matches[0]);
+        return intval($lastInteger); // Convert the last match to an integer
+    } else {
+        return null; // No integer found in the string
+    }
+  }
+  $_GET['t_id'] = getLastIntegerFromString($uri_segments[4]);
   $id = $_GET['t_id'];
+  $topicInfo = getTopicInfo($id);
   $trendingPosts = getTendingPosts($id);
   $posts = getPostsByTopicId($_GET['t_id']);
+  
   $paginationPosts = getPostsByTopicIdPagination($_GET['t_id'], $pageNumber, $perPage);
-  $postsTitle = "You searched for posts under '" . $_GET['name'] . "'";
+  $postsTitle = "You searched for posts under '" . $topicInfo['name'] . "'";
 } else if (isset($_POST['search-term'])) {
   $postsTitle = "You searched for '" . $_POST['search-term'] . "'";
   $posts = searchPosts($_POST['search-term']);
@@ -46,7 +62,7 @@ $logo = getLogo();
   <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
 
   <!-- Custom Styling -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL . '/assets/css/style.css'; ?>">
   <style>
       .banner {
           background: url('<?php echo BASE_URL . '/assets/images/' . $banner['image'] ?>') no-repeat center/cover;
@@ -87,9 +103,9 @@ $logo = getLogo();
               $defaultImage = BASE_URL . '/assets/default.jpg';
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
-              <a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="slider-image"></a>
+              <a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="slider-image"></a>
             <div class="post-info">
-              <h4><a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>">
+              <h4><a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>">
                       <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
                   </a></h4>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
@@ -127,9 +143,9 @@ $logo = getLogo();
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
 
-              <a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="post-image"></a>
+              <a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="post-image"></a>
             <div class="post-preview">
-              <h2><a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>"><?php echo $post['title']; ?></a></h2>
+              <h2><a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>"><?php echo $post['title']; ?></a></h2>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
               &nbsp;
               <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at'])); ?></i>
@@ -137,7 +153,7 @@ $logo = getLogo();
               <p class="preview-text">
                 <?php echo strip_tags(html_entity_decode(substr($post['body'], 0, 150) . '...'), '<b><i>'); ?>
               </p>
-              <a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>" class="btn read-more">Read More</a>
+              <a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>" class="btn read-more">Read More</a>
             </div>
           </div>    
         <?php endforeach; ?>
@@ -180,9 +196,9 @@ $logo = getLogo();
               $lowercaseString = strtolower($topic['name']);
               
               // Replace spaces and non-alphanumeric characters with an empty string
-              $topic['name_url'] = preg_replace('/[^a-z0-9]+/', '', $lowercaseString);
+              $topic['name_url'] = preg_replace('/[^a-z0-9]+/', '-', $lowercaseString).'-'.$topic['id'];
               ?>
-              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name_url'] ?>"><?php echo $topic['name']; ?></a></li>
+              <li><a href="<?php echo BASE_URL . '/index.php/category/' . $topic['name_url']; ?>"><?php echo $topic['name']; ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>

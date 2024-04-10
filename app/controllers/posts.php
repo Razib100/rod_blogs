@@ -22,17 +22,19 @@ $tag = "";
 $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri_segments = explode('/', $uri_path);
 
-function getLastIntegerFromString($str) {
-  // Match the last integer in the string (positive only)
-  if (preg_match_all('/\b\d+\b/', $str, $matches)) {
-      // Get the last match
-      $lastInteger = end($matches[0]);
-      return intval($lastInteger); // Convert the last match to an integer
-  } else {
-      return null; // No integer found in the string
-  }
+if (isset($uri_segments[3])) {
+    function getLastIntegerFromString($str) {
+        // Match the last integer in the string (positive only)
+        if (preg_match_all('/\b\d+\b/', $str, $matches)) {
+            // Get the last match
+            $lastInteger = end($matches[0]);
+            return intval($lastInteger); // Convert the last match to an integer
+        } else {
+            return null; // No integer found in the string
+        }
+      }
+      $_GET['id'] = getLastIntegerFromString($uri_segments[3]);
 }
-$_GET['id'] = getLastIntegerFromString($uri_segments[3]);
 
 if (isset($_GET['id'])) {
     $post = selectOne($table, ['id' => $_GET['id']]);

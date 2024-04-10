@@ -298,6 +298,23 @@ function getTendingPosts($id = null)
     return $records;
 }
 
+function getTopicInfo($topic_id)
+{
+    global $conn;
+    $sql = "SELECT * FROM topics WHERE id = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $topic_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $record = $result->fetch_assoc(); // Fetch a single record because topic_id is likely unique
+    $stmt->close();
+    
+    return $record; // Return a single record instead of an array of records
+}
+
+
+
 function getPostsByTopicId($topic_id)
 {
     global $conn;
