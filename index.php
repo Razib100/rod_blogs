@@ -182,7 +182,7 @@ $logo = getLogo();
 
         <div class="section search">
           <h2 class="section-title">Search</h2>
-          <form action="index.php" method="post">
+          <form action="<?= BASE_URL.'/index.php'; ?>" method="post">
             <input type="text" name="search-term" class="text-input" placeholder="Search...">
           </form>
         </div>
