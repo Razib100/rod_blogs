@@ -79,7 +79,9 @@ $logo = getLogo();
           <div>
             <span>Total views: <i class="fas fa-eye"> <?php echo $post['view_count']; ?></i></span>
           </div>
-
+            <div>
+                <span>SEO tag: <?php echo $post['tag']; ?></i></span>
+            </div>
         </div>
       </div>
       <!-- // Main Content -->
