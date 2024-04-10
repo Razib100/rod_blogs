@@ -74,16 +74,22 @@ $logo = getLogo();
       <i class="fas fa-chevron-right next"></i>
 
       <div class="post-wrapper">
-        <?php foreach ($trendingPosts as $post): ?>
+        <?php foreach ($trendingPosts as $post):
+           // Convert the string to lowercase
+           $lowercaseString = strtolower($post['title']);
+              
+           // Replace spaces and non-alphanumeric characters with an empty string
+           $post['seo_url'] = preg_replace('/[^a-z0-9]+/', '-', $lowercaseString);
+          ?>
           <div class="post">
               <?php
               // Assuming BASE_URL is defined somewhere in your code
               $defaultImage = BASE_URL . '/assets/default.jpg';
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
-              <a href="single.php?id=<?php echo $post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="slider-image"></a>
+              <a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="slider-image"></a>
             <div class="post-info">
-              <h4><a href="single.php?id=<?php echo $post['id']; ?>">
+              <h4><a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>">
                       <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
                   </a></h4>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
@@ -107,7 +113,13 @@ $logo = getLogo();
       <div class="main-content">
         <h1 class="recent-post-title"><?php echo $postsTitle ?></h1>
 
-        <?php foreach ($paginationPosts as $post): ?>
+        <?php foreach ($paginationPosts as $post): 
+          // Convert the string to lowercase
+          $lowercaseString = strtolower($post['title']);
+              
+          // Replace spaces and non-alphanumeric characters with an empty string
+          $post['seo_url'] = preg_replace('/[^a-z0-9]+/', '-', $lowercaseString);
+          ?>
           <div class="post clearfix">
               <?php
               // Assuming BASE_URL is defined somewhere in your code
@@ -115,9 +127,9 @@ $logo = getLogo();
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
 
-              <a href="single.php?id=<?php echo $post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="post-image"></a>
+              <a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="post-image"></a>
             <div class="post-preview">
-              <h2><a href="single.php?id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h2>
+              <h2><a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>"><?php echo $post['title']; ?></a></h2>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
               &nbsp;
               <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at'])); ?></i>
@@ -125,7 +137,7 @@ $logo = getLogo();
               <p class="preview-text">
                 <?php echo strip_tags(html_entity_decode(substr($post['body'], 0, 150) . '...'), '<b><i>'); ?>
               </p>
-              <a href="single.php?id=<?php echo $post['id']; ?>" class="btn read-more">Read More</a>
+              <a href="single.php/<?php echo $post['seo_url'].'-'.$post['id']; ?>" class="btn read-more">Read More</a>
             </div>
           </div>    
         <?php endforeach; ?>

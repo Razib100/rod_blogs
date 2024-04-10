@@ -1,5 +1,6 @@
 <?php include("path.php"); ?>
-<?php include(ROOT_PATH . '/app/controllers/posts.php');
+<?php  include(ROOT_PATH . '/app/controllers/posts.php');
+
 
 if (isset($_GET['id'])) {
   $post = selectOne('posts', ['id' => $_GET['id']]);
@@ -32,7 +33,7 @@ $logo = getLogo();
   <link href="https://fonts.googleapis.com/css?family=Candal|Lora" rel="stylesheet">
 
   <!-- Custom Styling -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL . '/assets/css/style.css'; ?>">
   <style>
     .banner {
       /*display: none;*/
@@ -91,9 +92,15 @@ $logo = getLogo();
         <div class="section popular">
           <h2 class="section-title">Popular</h2>
 
-          <?php foreach ($posts as $p) : ?>
+          <?php foreach ($posts as $p) : 
+            // Convert the string to lowercase
+           $lowercaseString = strtolower($p['title']);
+              
+           // Replace spaces and non-alphanumeric characters with an empty string
+           $p['seo_url'] = preg_replace('/[^a-z0-9]+/', '-', $lowercaseString);
+            ?>
             <div class="post clearfix">
-              <a href="single.php?id=<?php echo $p['id']; ?>" class="title">
+              <a href="<?php echo BASE_URL .'/single.php/'. $p['seo_url'].'-'.$p['id']; ?>" class="title">
                 <h4><?php echo $p['title'] ?></h4>
               </a>
             </div>
@@ -103,8 +110,14 @@ $logo = getLogo();
         <div class="section topics">
           <h2 class="section-title">Category</h2>
           <ul>
-            <?php foreach ($topics as $topic) : ?>
-              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name'] ?>"><?php echo $topic['name']; ?></a></li>
+            <?php foreach ($topics as $topic) : 
+              // Convert the string to lowercase
+              $lowercaseString = strtolower($topic['name']);
+              
+              // Replace spaces and non-alphanumeric characters with an empty string
+              $topic['name_url'] = preg_replace('/[^a-z0-9]+/', '', $lowercaseString);
+              ?>
+              <li><a href="<?php echo BASE_URL . '/index.php?t_id=' . $topic['id'] . '&name=' . $topic['name_url'] ?>"><?php echo $topic['name']; ?></a></li>
             <?php endforeach; ?>
 
           </ul>
