@@ -81,7 +81,7 @@ $logo = getLogo();
               $defaultImage = BASE_URL . '/assets/default.jpg';
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
-              <img src="<?php echo $imageUrl; ?>" alt="" class="slider-image">
+              <a href="single.php?id=<?php echo $post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="slider-image"></a>
             <div class="post-info">
               <h4><a href="single.php?id=<?php echo $post['id']; ?>">
                       <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
@@ -115,7 +115,7 @@ $logo = getLogo();
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
 
-              <img src="<?php echo $imageUrl; ?>" alt="" class="post-image">
+              <a href="single.php?id=<?php echo $post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="post-image"></a>
             <div class="post-preview">
               <h2><a href="single.php?id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h2>
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
