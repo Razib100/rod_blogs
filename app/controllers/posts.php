@@ -88,7 +88,7 @@ if (isset($_POST['add-post'])) {
     $_POST['tending'] = isset($_POST['tending']) ? 1 : 0;
     if($_POST['tending'] == 1) {
         if (!empty($_FILES['image']['name'])) {
-            $image_name = time() . '_' . $_FILES['image']['name'];
+            $image_name = time() . '_' . sanitizeFileName($_FILES['image']['name']);
             $destination = ROOT_PATH . "/assets/images/" . $image_name;
 
             $result = move_uploaded_file($_FILES['image']['tmp_name'], $destination);
@@ -143,7 +143,7 @@ if (isset($_POST['update-post'])) {
     $errors = validatePost($_POST);
 
     if (!empty($_FILES['image']['name'])) {
-        $image_name = time() . '_' . $_FILES['image']['name'];
+        $image_name = time() . '_' . sanitizeFileName($_FILES['image']['name']);
         $destination = ROOT_PATH . "/assets/images/" . $image_name;
 
         $result = move_uploaded_file($_FILES['image']['tmp_name'], $destination);
@@ -188,4 +188,14 @@ if (isset($_POST['update-post'])) {
         $tag = $_POST['tag'];
     }
 
+}
+
+function sanitizeFileName($fileName) {
+    // Replace spaces with underscores
+    $fileName = str_replace(' ', '_', $fileName);
+    
+    // Remove any characters that are not alphanumeric, underscore, or dot
+    $fileName = preg_replace('/[^\w\-.]/', '', $fileName);
+    
+    return $fileName;
 }
