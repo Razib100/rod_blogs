@@ -104,10 +104,11 @@ $logo = getLogo();
               $imageUrl = isset($post['image']) && !empty($post['image']) ? BASE_URL . '/assets/images/' . $post['image'] : $defaultImage;
               ?>
               <a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>"><img src="<?php echo $imageUrl; ?>" alt="" class="slider-image"></a>
-            <div class="post-info">
-              <h4><a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>">
-                      <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
+              <h4 style="margin-top: 33px !important;"><a href="<?php echo BASE_URL.'/single.php/'. $post['seo_url'].'-'.$post['id']; ?>">
+					  <?php echo html_entity_decode(substr($post['title'], 0, 100) . '...'); ?>
                   </a></h4>
+              <div class="post-info">
+
               <i class="far fa-user"> <?php echo $post['username']; ?></i>
               &nbsp;
               <i class="far fa-calendar"> <?php echo date('F j, Y', strtotime($post['created_at'])); ?></i>

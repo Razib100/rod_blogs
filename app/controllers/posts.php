@@ -23,6 +23,18 @@ $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri_segments = explode('/', $uri_path);
 
 if (isset($uri_segments[3])) {
+	if (isset($_GET['id'])) {
+		$post = selectOne($table, ['id' => $_GET['id']]);
+
+		$id = $post['id'];
+		$title = $post['title'];
+		$body = $post['body'];
+		$image = $post['image'];
+		$topic_id = $post['topic_id'];
+		$published = $post['published'];
+		$tending = $post['tending'];
+		$tag = $post['tag'];
+	}
     function getLastIntegerFromString($str) {
         // Match the last integer in the string (positive only)
         if (preg_match_all('/\b\d+\b/', $str, $matches)) {
@@ -102,8 +114,53 @@ if (isset($_POST['add-post'])) {
             array_push($errors, "This is Tending Post image required");
         }
     }
-    
-    if (isset($_POST['tag']) && $_POST['tag']) {
+//	if($_POST['tending'] == 1) {
+//		if (!empty($_FILES['image']['name'])) {
+//			$image_name = time() . '_' . sanitizeFileName($_FILES['image']['name']);
+//			$destination = ROOT_PATH . "/assets/images/" . $image_name;
+//
+//			// Get the uploaded image's temporary location
+//			$tmp_location = $_FILES['image']['tmp_name'];
+//
+//			// Get the original image's dimensions
+//			list($width, $height) = getimagesize($tmp_location);
+//
+//			// Set a maximum width and height for resizing
+//			$max_width = 800;
+//			$max_height = 600;
+//
+//			// Calculate new dimensions
+//			$ratio = min($max_width/$width, $max_height/$height);
+//			$new_width = $width * $ratio;
+//			$new_height = $height * $ratio;
+//
+//			// Create a new image resource with the new dimensions
+//			$image_resized = imagecreatetruecolor($new_width, $new_height);
+//
+//			// Load the original image
+//			$image_original = imagecreatefromjpeg($tmp_location); // Change this to appropriate function based on image type
+//
+//			// Resize the original image to the new dimensions
+//			imagecopyresampled($image_resized, $image_original, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//
+//			// Save the resized image
+//			$result = imagejpeg($image_resized, $destination); // Change this to appropriate function based on desired image format
+//
+//			// Free up memory
+//			imagedestroy($image_original);
+//			imagedestroy($image_resized);
+//
+//			if ($result) {
+//				$_POST['image'] = $image_name;
+//			} else {
+//				array_push($errors, "Failed to upload image");
+//			}
+//		}else{
+//			array_push($errors, "This is Tending Post image required");
+//		}
+//	}
+
+	if (isset($_POST['tag']) && $_POST['tag']) {
         $array = json_decode($_POST['tag'], true);
 
         $values = array();
